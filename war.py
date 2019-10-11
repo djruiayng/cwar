@@ -244,8 +244,54 @@ if "u663e2bfd447da72d0cc8f3f1648d1762" not in ban["owners"]:
     ban["owners"].append("u663e2bfd447da72d0cc8f3f1648d1762")
 
 
-def lineBot(op):
+def lineBot(op):   
     try:
+        if op.type == 19:
+            G = cl.getGroup(op.param1)
+            if op.param1 in pro["protect"]:
+                bot = random.choice(set["bot1"])
+                G = bot.getGroup(op.param1)
+                if op.param2 in ban["owners"] or op.param2 in ban["admin"] :
+                    pass
+                else:
+                    bot.kickoutFromGroup(op.param1,[op.param2])
+                    ban["blacklist"][op.param2] = True
+            if op.param3 in ban["owners"]:
+                bot = random.choice(set["bot1"])
+                bot.findAndAddContactsByMid(op.param3)
+                bot.inviteIntoGroup(op.param1,[op.param3])
+
+        if op.type == 11:
+            G = cl.getGroup(op.param1)
+            if op.param1 in pro["qrprotect"]:
+                if op.param2 in ban["owners"] or op.param2 in ban["admin"] :
+                    pass
+                else:
+                    G = cl.getGroupWithoutMembers(op.param1)
+                    if G.id in gp["s"] and op.param2 in gp["s"][G.id]:
+                        pass
+                    else:
+                        bot = random.choice(set["bot1"])                      
+                        gs = cl.getGroup(op.param1)
+                        cl.sendMessage(op.param1,cl.getContact(op.param2).displayName + "🔥網址保護中...不要動群組網址！🔥") 
+                        bot.kickoutFromGroup(op.param1,[op.param2])
+                        G.preventedJoinByTicket = False
+                        G.preventedJoinByTicket = True
+                        bot.updateGroup(G)
+        if op.type == 13:
+            G = cl.getGroup(op.param1)
+            if op.param1 in pro["invprotect"]:
+                if op.param2 in ban["owners"] or op.param2 in ban["admin"] :
+                    pass
+                else:
+                    gs = cl.getGroup(op.param1)
+                    if G.id in gp["s"] and op.param2 in gp["s"][G.id]:
+                        pass
+                    else:
+                        bot = random.choice(set["bot1"])
+                        bot.cancelGroupInvitation(op.param1,[op.param3])
+                        bot.kickoutFromGroup(op.param1,[op.param2])
+                        ban["blacklist"][op.param2] = True
         if op.type == 0:
             return
         elif op.type == 13:
@@ -504,6 +550,89 @@ def lineBot(op):
                 if text.lower() == 'save':
                     backupData()
                     cl.sendMessage(to, '儲存設定成功!')
+                elif text.lower() == '保護設定':
+                    try:
+                        ret_ = "╔══[🔥   〘弑神 戰爭〙   🔥]"
+
+                        if msg.toType==2:
+                            G = cl.getGroup(msg.to)
+                            if G.id in pro["protect"] : ret_+="\n╠ 踢人保護 ✅"
+                            else: ret_ += "\n╠ 踢人保護 ❌"
+                            if G.id in pro["qrprotect"] : ret_+="\n╠ 網址保護 ✅"
+                            else: ret_ += "\n╠ 網址保護 ❌"
+                            if G.id in pro["invprotect"] : ret_+="\n╠ 邀請保護 ✅"
+                            else: ret_ += "\n╠ 邀請保護 ❌"							
+                        ret_ += "\n╚══[🔥   〘弑神 戰爭〙   🔥]"
+                        cl.sendMessage(to, str(ret_))
+                    except Exception as e:
+                        cl.sendMessage(msg.to, str(e))
+                elif text.lower() == '網址保護 開':
+                    if msg.toType ==2:
+                        G = cl.getGroup(msg.to)
+                        pro["qrprotect"][G.id] = True
+                        cl.sendMessage(to, "網址保護開啟")
+                elif text.lower() == '網址保護 關':
+                    if msg.toType ==2 :
+                        G = cl.getGroup(msg.to)
+                        try:
+                            del pro["qrprotect"][G.id]
+                        except:
+                            pass
+                        cl.sendMessage(to, "網址保護關閉")
+                elif text.lower() == '踢人保護 開':
+                    if msg.toType ==2:
+                        G = cl.getGroup(msg.to)
+                        pro["protect"][G.id] = True
+                        cl.sendMessage(to, "踢人保護開啟")
+                elif text.lower() == '踢人保護 關':
+                    if msg.toType ==2 :
+                        G = cl.getGroup(msg.to)
+                        try:
+                            del pro["protect"][G.id]
+                        except:
+                            pass
+                        cl.sendMessage(to, "踢人保護關閉")
+                elif text.lower() == '邀請保護 開':
+                    if msg.toType ==2:
+                        G = cl.getGroup(msg.to)
+                        pro["invprotect"][G.id] = True
+                        cl.sendMessage(to, "邀請保護開啟")
+                elif text.lower() == '邀請保護 關':
+                    if msg.toType ==2 :
+                        G = cl.getGroup(msg.to)
+                        try:
+                            del pro["invprotect"][G.id]
+                        except:
+                            pass
+                        cl.sendMessage(to, "邀請保護關閉")
+                elif text.lower() == '全部保護 開':
+                    if msg.toType ==2:
+                        G = cl.getGroup(msg.to)
+                        pro["protect"][G.id] = True
+                        pro["qrprotect"][G.id] = True
+                        pro["invprotect"][G.id] = True
+                        cl.sendMessage(to, "踢人保護開啟")
+                        cl.sendMessage(to, "邀請保護開啟")
+                        cl.sendMessage(to, "網址保護開啟")
+                elif text.lower() == '全部保護 關':
+                    if msg.toType ==2:
+                        G = cl.getGroup(msg.to)
+                        try:
+                            del pro["protect"][G.id]
+                            cl.sendMessage(to, "踢人保護關閉")
+                        except:
+                            pass
+                        try:
+                            del pro["qrprotect"][G.id]
+                            cl.sendMessage(to, "網址保護關閉")
+                        except:
+                            pass
+                        try:
+                            del pro["invprotect"][G.id]
+                            cl.sendMessage(to, "邀請保護關閉")
+                            cl.sendMessage(to, "所有保護保護已關閉。")
+                        except:
+                            pass        
                 elif text.lower() == '取消邀請':
                     if msg.toType == 2:
                         X = cl.getGroup(msg.to)
