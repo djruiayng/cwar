@@ -2,7 +2,7 @@
 from Linephu.linepy import *
 import sys, json, codecs, os
 cl = LINE("qqqqwww9420@gmail.com", "djry9420")
-k1 = LINE("jolenemilagrosce@gmail.com", "djry9420")
+k1 = LINE("pyaics@nixemail.net", "djry9420")
 k2 = LINE("hrwghnayw@whkart.com", "djry9420")
 k3 = LINE("imawfm@3nixmail.com", "djry9420")
 k4 = LINE("czohaoz@nixemail.net", "djry9420")
