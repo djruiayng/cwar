@@ -2,12 +2,12 @@
 from Linephu.linepy import *
 import sys, json, codecs, os
 cl = LINE("qqqqwww9420@gmail.com", "djry9420")
-k1 = LINE("ignacioheddlesten@gmail.com", "djry9420")
-k2 = LINE("wilrekingki@gmail.com", "djry9420")
-k3 = LINE("mandcoburas@gmail.com", "djry9420")
-k4 = LINE("sigmimicol@gmail.com", "djry9420")
-k5 = LINE("dnlljln@gmail.com", "djry9420")
-js = LINE("JoleneMilagrosce@gmail.com", "djry9420")
+k1 = LINE("jolenemilagrosce@gmail.com", "djry9420")
+k2 = LINE("hrwghnayw@whkart.com", "djry9420")
+k3 = LINE("imawfm@3nixmail.com", "djry9420")
+k4 = LINE("czohaoz@nixemail.net", "djry9420")
+k5 = LINE("zsgnotlfs@wmail2.com", "djry9420")
+js = LINE("cjzmlxlw@whkart.com", "djry9420")
 #js2 = LINE(tkn["tokens"][7], appName="IOS\t8.14.2\tIphone X\t8.1.0") 
 #print('JS2防-{} 登入成功 '.format(js2.profile.displayName))
 
